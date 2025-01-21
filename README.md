@@ -3,7 +3,7 @@
 ## Overview
 This project aims to design and implemention a web-based image processing application with basic and advanced functionalities using modern technologies like Python, HTML, and CSS.
 
-##Home Page
+## Home Page
 ![Home Page](https://raw.githubusercontent.com/haemuucia/final-project_imp/main/home_page.png)
 
 ## Installation
