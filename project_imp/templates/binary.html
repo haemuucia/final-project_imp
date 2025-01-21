@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary Image Processing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Quicksand", Arial, sans-serif;
+            background-color: #fffdf0;
+            margin: 0;
+        }
+
+        header {
+            background-color: #fffdf0;
+            padding: 10px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            font-family: "Quicksand", serif;
+        }
+
+        #imp {
+            margin-right: auto;
+        }
+
+        .separator-line {
+            width: 80%;
+            margin: 60px auto 20px auto;
+            height: 1px;
+            background-color: black;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: 120px auto;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #d9dfc6;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #735e59;
+        }
+
+        .image-preview img {
+            max-width: 100%;
+            margin-top: 10px;
+            display: block;
+        }
+
+        .controls {
+            margin-top: 20px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" id="imp">Project IMP</a>
+            <a href="/blending">Blending</a>
+            <a href="/uploads">Border</a>
+            <a href="/crop">Crop</a>
+            <a href="/feature_matching">Feature Matching</a>
+            <a href="/filters">Filters</a>
+            <a href="/bg_replacement">BG Replacement</a>
+            <a href="/enhancement">Enhancement</a>
+            <a href="/compress">Compress</a>
+            <a href="/binary">Binary</a>
+            <a href="/overlay">Overlay</a>
+        </nav>
+    </header>
+    <div class="separator-line"></div>
+    <div class="container">
+        <h1>Binary Image Processing</h1>
+        <input type="file" id="uploadImage" accept="image/*" onchange="previewImage()">
+        <div class="image-preview">
+            <img id="imagePreview" src="" alt="Image Preview" style="display: none;">
+        </div>
+        <div class="controls">
+            <label for="operation">Select Operation</label>
+            <select id="operation" onchange="updateImage()">
+                <option value="">--Select Operation--</option>
+                <option value="erosion">Erosion</option>
+                <option value="dilation">Dilation</option>
+                <option value="opening">Opening</option>
+                <option value="closing">Closing</option>
+                <option value="skeleton">Skeletonization</option>
+                <option value="boundary">Boundary Extraction</option>
+            </select>
+        </div>
+        <button onclick="saveImage()" type="button">Save Image</button>
+    </div>
+
+    <script>
+        let originalImage = null;
+        let processedImageUrl = '';  // Store processed image URL
+        const saveBtn = document.getElementById('saveBtn');
+        function previewImage() {
+            const fileInput = document.getElementById('uploadImage');
+            const preview = document.getElementById('imagePreview');
+
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    originalImage = new Image();
+                    originalImage.src = e.target.result;
+                };
+
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
+
+        function updateImage() {
+            const fileInput = document.getElementById('uploadImage');
+            const operationSelect = document.getElementById('operation');
+            const operation = operationSelect.value;
+
+            if (!fileInput.files[0] || !operation) {
+                alert("Please upload an image and select an operation.");
+                return;
+            }
+
+            // Apply binary image processing based on the selected operation
+            const formData = new FormData();
+            formData.append('img', fileInput.files[0]);
+            formData.append('operation', operation);
+
+            // Fetch request to process the image
+            fetch('/binary', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.processed_image_url) {
+                    // Update the image preview to show the processed image
+                    const preview = document.getElementById('imagePreview');
+                    preview.src = data.processed_image_url;  // Update preview directly
+                    preview.style.display = 'block';
+
+                    // Store the processed image URL
+                    processedImageUrl = data.processed_image_url;
+                } else {
+                    alert("Error processing image.");
+                }
+            })
+            .catch(error => {
+                console.error("Error processing image:", error);
+                alert("An error occurred while processing the image.");
+            });
+        }
+
+        function saveImage() {
+            if (!processedImageUrl) {
+                alert("No processed image to save.");
+                return;
+            }
+            const link = document.createElement('a');
+            link.href = processedImageUrl;
+            link.download = 'binary_image.png';  
+            link.click();  
+        }
+    </script>    
+</body>
+</html>

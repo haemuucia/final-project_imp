@@ -1,0 +1,172 @@
+Here’s the updated HTML code with the "Save Image" button added beside the "Crop Image" button. The two buttons are placed side by side, with their widths divided equally.
+
+### Updated Code:
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <style>
+        /* Importing the fonts */
+        @import url('https://fonts.cdnfonts.com/css/tt-commons-pro');
+        @import url('https://fonts.cdnfonts.com/css/tt-backwards-sans-trial');
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fffdf0;
+            padding: 20px;
+            margin: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: 0 auto 20px auto;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="file"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .button-container input[type="submit"] {
+            flex: 1;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #d9dfc6;
+            color: black;
+        }
+
+        .button-container input[type="submit"]:hover {
+            background-color: #735e59;
+            color: white;
+        }
+
+        .cropped-image-container {
+            text-align: center;
+        }
+
+        .cropped-image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .cropped-image-container h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        /* Header styles */
+        header {
+            background-color: #fffdf0;
+            padding: 2rem;
+            padding-top: 30px;  
+            text-align: right;
+            margin-right: 7rem;
+            font-size: 20px;
+        }
+
+        /* Nav styles - applying TT Commons Pro font */
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            font-family: "Quicksand", serif;
+        }
+
+        #imp {
+            position: absolute;
+            left: 150px;
+        }
+
+        /* Separator line styles */
+        .separator-line {
+            width: 80%; 
+            margin: 0 auto; 
+            height: 1px; 
+            background-color: black;
+            margin-bottom: 20px; 
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" id="imp">Project IMP</a>
+            <a href="/blending">Blending</a>
+            <a href="/uploads">Border</a>
+            <a href="/crop">Crop</a>
+            <a href="/feature_matching">Feature Matching</a>
+            <a href="/filters">Filters</a>
+            <a href="/bg_replacement">BG Replacement</a>
+            <a href="/enhancement">Enhancement</a>
+            <a href="/compress">Compress</a>
+            <a href="/binary">Binary</a>
+            <a href="/overlay">Overlay</a>  
+        </nav>
+    </header>
+    <div class="separator-line"></div>
+    <main>
+        <!-- Form to upload image and enter cropping dimensions -->
+        <form method="POST" enctype="multipart/form-data">
+            <label for="image">Select an image:</label>
+            <input type="file" name="img" required>
+
+            <label for="width">Width:</label>
+            <input type="number" name="width" required>
+
+            <label for="height">Height:</label>
+            <input type="number" name="height" required>
+
+            <div class="button-container">
+                <input type="submit" value="Crop Image">
+                <input type="submit" value="Save Image">
+            </div>
+        </form>
+
+        <!-- Show cropped image if available -->
+        <div class="cropped-image-container">
+            {% if img %}
+                <h2>Cropped Image:</h2>
+                <img src="{{ img }}" alt="Cropped Image">
+            {% endif %}
+        </div>
+    </main>
+</body>
+</html>
+```
+

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Matching</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Importing the fonts */
+@import url('https://fonts.cdnfonts.com/css/tt-commons-pro');
+@import url('https://fonts.cdnfonts.com/css/tt-backwards-sans-trial');
+
+        /* General body style */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fffdf0;
+}
+
+/* Header styles */
+header {
+    background-color: #fffdf0;
+    padding: 2rem;
+    padding-top: 30px;  
+    text-align: right;
+    margin-right: 7rem;
+    font-size: 20px;
+}
+
+/* Nav styles - applying TT Commons Pro font */
+nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    font-family: "Quicksand", serif;
+}
+
+/* Main section styles */
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem auto;
+    width: 90%;
+}
+
+/* Form section styles */
+.form-section {
+    font-size: 25px;
+    display: flex;
+    justify-content: center; /* Center the items */
+    align-items: flex-start;
+    gap: 3rem; /* Space between the text/form and the image preview */
+    margin-top: 2rem;
+    width: 100%; /* Ensure full width for center alignment */
+}
+
+/* Form container for each image */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the content */
+    gap: 1rem;
+    width: 100%; /* Make form container take full width for centering */
+    max-width: 500px; /* Maximum width to prevent the form from stretching too wide */
+}
+
+/* Input styles */
+form input, form select, form button {
+    display: block;
+    padding: 10px;
+    font-size: 1rem;
+    width: 80%; /* Make form elements responsive */
+}
+
+/* Image preview container styles */
+#preview-container {
+    width: 300px; /* Set width */
+    height: 300px; /* Set fixed height */
+    border: 2px solid #735e59; /* Add border */
+    padding: 10px;
+    background-color: #f0f0f0; /* Light background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+/* Image preview styling */
+#preview-container img {
+    max-width: 100%; /* Scale to fit */
+    max-height: 100%;
+    object-fit: contain; /* Keep aspect ratio */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center image */
+}
+
+/* Label styling */
+label {
+    font-size: 1rem;
+    color: #333;
+    text-align: center;
+}
+
+/* Separator line styling */
+.separator-line {
+    width: 1px;
+    height: 400px; /* Adjust height */
+    background-color: black; /* Line color */
+    margin: 0 20px;
+}
+
+/* Centered select and button styles */
+.centered-select {
+    text-align: center;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+}
+
+/* Make sure the button and dropdown are centered */
+.centered-select select, .centered-select button {
+    width: 80%; /* Ensure width consistency */
+    max-width: 300px; /* Prevent items from stretching too wide */
+}
+
+/* Button styling */
+form button {
+    background-color: #d9dfc6;
+    border: none;
+    padding: 1rem;
+    border-radius: 20px;
+    margin-top: 1rem;
+    cursor: pointer;
+    text-align: center;
+}
+
+/* h1 styles */
+h1 {
+    margin: auto;
+    max-width: 500px;
+    text-align: center;
+    font-size: 2.7rem;
+    color: #735e59;
+    font-family: 'TT Backwards Sans Trial', sans-serif;
+}
+
+/* Style for 'imp' element */
+#imp {
+   position: absolute;
+   left: 150px;
+}
+
+/* Matched Image Container */
+.matched-image-container {
+    display: flex;
+    flex-direction: column; /* Stack the title and image vertically */
+    justify-content: center; /* Center the content */
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* Matched Image Styling */
+img[alt="Matched Image"] {
+    max-width: 900px; /* Control the max width */
+    height: auto;
+    border: 1px solid #ddd;
+    padding: 5px;
+    border-radius: 10px;
+    margin-top: 10px; /* Add some space between the text and the image */
+}
+
+/* Separator line class */
+.separatorline {
+    width: 80%; 
+    margin: 0 auto; 
+    height: 1px; 
+    background-color: black;
+    margin-bottom: 20px; 
+}
+
+    </style>
+    <script>
+        // Function to preview the uploaded images
+        function previewImage(input, previewId) {
+            const file = input.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById(previewId).src = e.target.result;
+                document.getElementById(previewId).style.display = 'block'; // Show image preview
+            };
+            reader.readAsDataURL(file);
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" id="imp">Project IMP</a>
+            <a href="/blending">Blending</a>
+            <a href="/uploads">Border</a>
+            <a href="/crop">Crop</a>
+            <a href="/feature_matching">Feature Matching</a>
+            <a href="/filters">Filters</a>
+            <a href="/bg_replacement">BG Replacement</a>
+            <a href="/enhancement">Enhancement</a>
+            <a href="/compress">Compress</a>
+            <a href="/binary">Binary</a>
+            <a href="/overlay">Overlay</a>  
+        </nav>
+    </header>
+    <div class="separatorline"></div>
+    <h1>Feature Matching</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <div class="form-section">
+            <div class="form-container">
+                <label for="file1">Image 1:</label>
+                <input type="file" name="file1" id="file1" onchange="previewImage(this, 'image1-preview')" required>
+                <div id="preview-container">
+                    <img id="image1-preview" src="" alt="Image 1 Preview" />
+                </div>
+            </div>
+    
+            <div class="separator-line"></div> <!-- Vertical line separator -->
+    
+            <div class="form-container">
+                <label for="file2">Image 2:</label>
+                <input type="file" name="file2" id="file2" onchange="previewImage(this, 'image2-preview')" required>
+                <div id="preview-container">
+                    <img id="image2-preview" src="" alt="Image 2 Preview" />
+                </div>
+            </div>
+        </div>
+    
+        <div class="centered-select">
+            <label for="method">Feature Detection Method:</label>
+            <select name="method" id="method">
+                <option value="SIFT">SIFT</option>
+                <option value="ORB">ORB</option>
+            </select>
+            <button type="submit">Match Features</button>
+            <br>
+        </div>
+    </form>
+       
+
+    {% if matched_image_url %}
+    <div class="matched-image-container">
+        <h1>Matched Image:</h1>
+        <img src="{{ matched_image_url }}" alt="Matched Image"/>
+    </div>
+
+    {% endif %}
+    {% if error %}
+        <p>{{ error }}</p>
+    {% endif %}
+</body>
+</html>

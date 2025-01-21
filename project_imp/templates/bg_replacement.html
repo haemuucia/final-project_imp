@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Image for Background Replacement</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <style>
+        header {
+            background-color: #fffdf0;
+            padding: 10px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            font-family: "Quicksand", Arial, sans-serif;
+        }
+
+        #imp {
+            margin-right: auto;
+        }
+
+        .separator-line {
+            width: 80%;
+            margin: 60px auto 20px auto;
+            height: 1px;
+            background-color: black;
+        }
+
+        body {
+            font-family: "Quicksand", Arial, sans-serif;
+            background-color: #fffdf0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        form {
+            display: inline-block;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="file"],
+        input[type="submit"] {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #d9dfc6;
+            color: #333;
+            border: none;
+            cursor: pointer;
+            font-family: 'TT Backwards Sans Trial', sans-serif;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #735e59;
+            color: white;
+        }
+
+        .separator-line {
+            width: 80%;
+            margin: 0 auto;
+            height: 1px;
+            background-color: black;
+            margin-bottom: 20px;
+        }
+
+        .result-image {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border: 10px solid #735e59;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" id="imp">Project IMP</a>
+            <a href="/blending">Blending</a>
+            <a href="/uploads">Border</a>
+            <a href="/crop">Crop</a>
+            <a href="/feature_matching">Feature Matching</a>
+            <a href="/filters">Filters</a>
+            <a href="/bg_replacement">BG Replacement</a>
+            <a href="/enhancement">Enhancement</a>
+            <a href="/compress">Compress</a>
+            <a href="/binary">Binary</a>
+            <a href="/overlay">Overlay</a>        </nav>
+    </header>
+    <div class="separator-line"></div>
+    <h1>Background Replacement</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+        <label for="img">Select an image:</label>
+        <input type="file" name="img" required><br>
+
+        <label for="bg_img">Select a background image:</label>
+        <input type="file" name="bg_img" required><br>
+
+        <input type="submit" value="Replace Background">
+    </form>
+
+    <h1>Result</h1>
+
+    <!-- Display the result image -->
+    <img src="{{ img }}" alt="Processed Image">
+</body>
+</html>

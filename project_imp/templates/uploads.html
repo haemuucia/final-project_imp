@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canva Bodong - Image Border Editor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <style>
+        /* Importing the fonts */
+@import url('https://fonts.cdnfonts.com/css/tt-commons-pro');
+@import url('https://fonts.cdnfonts.com/css/tt-backwards-sans-trial');
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #fffdf0;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: #d9dfc6;
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .upload-form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #6366f1;
+        }
+
+        .color-preview {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 10px;
+            border: 2px solid #e2e8f0;
+        }
+
+    /* Style for buttons */
+    /* Style for buttons */
+button {
+    background-color: #fcf4d9; /* Light yellow */
+    color: #444444; /* Dark gray */
+    border: 1px solid #dddddd; /* Subtle border */
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #f7eeb8; /* Slightly darker yellow on hover */
+}
+
+button:focus {
+    outline: none;
+    border-color: #f0c050; /* Emphasize focus state with a golden yellow border */
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+        .file-upload {
+            border: 2px dashed #e2e8f0;
+            padding: 20px;
+            text-align: center;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .file-upload:hover {
+            border-color: #6366f1;
+        }
+
+        .file-upload input[type="file"] {
+            display: none;
+        }
+
+        .preview-section {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .preview-section h2 {
+            margin-bottom: 20px;
+            color: #444;
+        }
+
+        .preview-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+        }
+
+        .thickness-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .thickness-value {
+            min-width: 40px;
+            text-align: center;
+            font-weight: bold;
+            color: #6366f1;
+        }
+
+        /* Header styles */
+header {
+    background-color: #fffdf0;
+    padding: 2rem;
+    padding-top: 30px;  
+    text-align: right;
+    margin-right: 7rem;
+    font-size: 20px;
+}
+
+/* Nav styles - applying TT Commons Pro font */
+nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    font-family: "Quicksand", serif;
+}
+#imp {
+   position: absolute;
+   left: 150px;
+}
+    /* Separator line styles */
+.separator-line {
+    width: 80%; 
+    margin: 0 auto; 
+    height: 1px; 
+    background-color: black;
+    margin-bottom: 20px; 
+}
+
+    /* Button Container */
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* Common button styles */
+input[type="submit"] {
+    background-color: #d9dfc6;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-align: center;
+    width: 48%;
+}
+
+/* Button hover effect */
+input[type="submit"]:hover {
+    background-color: #d9dfc6;
+    transform: scale(1.05);
+}
+
+/* Button focus effect */
+input[type="submit"]:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px #333;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" id="imp">Project IMP</a>
+            <a href="/blending">Blending</a>
+            <a href="/uploads">Border</a>
+            <a href="/crop">Crop</a>
+            <a href="/feature_matching">Feature Matching</a>
+            <a href="/filters">Filters</a>
+        </nav>
+    </header>
+    <div class="separator-line"></div>
+    <main>
+    <div class="container">
+        <form method="POST" enctype="multipart/form-data" class="upload-form">
+            <div class="form-group">
+                <label for="img">Upload Image</label>
+                <div class="file-upload" id="dropZone">
+                    <input type="file" name="img" id="img" accept="image/*" required>
+                    <p id="file-name"></p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="thickness">Border Thickness</label>
+                <div class="thickness-container">
+                    <input type="range" 
+                           class="form-control" 
+                           name="thickness" 
+                           id="thickness" 
+                           min="1" 
+                           max="50" 
+                           value="1"
+                           required>
+                    <span class="thickness-value" id="thickness-display">1px</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="border_type">Border Type</label>
+                <select name="border_type" id="border_type" class="form-control" required>
+                    <option value="solid">Solid</option>
+                    <option value="dotted">Dotted</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="border_color">Border Color</label>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <input type="color" 
+                           class="form-control" 
+                           name="border_color" 
+                           id="border_color" 
+                           value="#000000" 
+                           required>
+                    <input type="text" 
+                           class="form-control" 
+                           id="color-hex" 
+                           value="#000000" 
+                           pattern="^#[0-9A-Fa-f]{6}$" 
+                           style="flex: 1;">
+                </div>
+            </div>
+
+            <div class="button-container">
+                <button type="submit" name="action" value="process">Process Image</button>
+                <button type="submit" name="action" value="save">Save Image</button>
+                {% if img %}
+                    <input type="hidden" name="processed_image_path" value="{{ processed_image_path }}">
+                {% endif %}
+            </div>        
+        </form>
+
+        {% if img %}
+        <div class="preview-section">
+            <h2>Processed Image</h2>
+            <img src="{{ img }}" alt="Processed Image" class="preview-image">
+        </div>
+        {% endif %}
+
+        {% if message %}
+        <p style="color: green;">{{ message }}</p>
+        {% endif %}
+
+    </div>
+
+    <script>
+        // Update thickness display
+        const thicknessInput = document.getElementById('thickness');
+        const thicknessDisplay = document.getElementById('thickness-display');
+        
+        thicknessInput.addEventListener('input', function() {
+            thicknessDisplay.textContent = this.value + 'px';
+        });
+
+        // Color picker sync
+        const colorPicker = document.getElementById('border_color');
+        const hexInput = document.getElementById('color-hex');
+
+        colorPicker.addEventListener('input', function() {
+            hexInput.value = this.value.toUpperCase();
+        });
+
+        hexInput.addEventListener('input', function() {
+            if (this.value.match(/^#[0-9A-Fa-f]{6}$/)) {
+                colorPicker.value = this.value;
+            }
+        });
+
+        // File upload preview
+        const fileInput = document.getElementById('img');
+        const fileName = document.getElementById('file-name');
+        const dropZone = document.getElementById('dropZone');
+
+        fileInput.addEventListener('change', function() {
+            if (this.files[0]) {
+                fileName.textContent = 'Selected file: ' + this.files[0].name;
+            }
+        });
+
+        // Drag and drop functionality
+        dropZone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.style.borderColor = '#6366f1';
+        });
+
+        dropZone.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            this.style.borderColor = '#e2e8f0';
+        });
+
+        dropZone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.style.borderColor = '#e2e8f0';
+            fileInput.files = e.dataTransfer.files;
+            if (fileInput.files[0]) {
+                fileName.textContent = 'Selected file: ' + fileInput.files[0].name;
+            }
+        });
+
+        dropZone.addEventListener('click', function() {
+            fileInput.click();
+        });
+
+        
+    </script>
+    </main>
+</body>
+</html> 
+
+

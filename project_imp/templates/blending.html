@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Blending</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" id="imp">Project IMP</a>
+            <a href="/blending">Blending</a>
+            <a href="/uploads">Border</a>
+            <a href="/crop">Crop</a>
+            <a href="/feature_matching">Feature Matching</a>
+            <a href="/filters">Filters</a>
+            <a href="/bg_replacement">BG Replacement</a>
+            <a href="/enhancement">Enhancement</a>
+            <a href="/compress">Compress</a>
+            <a href="/binary">Binary</a>
+            <a href="/overlay">Overlay</a>
+        </nav>
+    </header>
+    <div class="separator-line"></div>
+
+    <h1>Image Blending Tool</h1>
+    <form action="/blending" method="post" enctype="multipart/form-data">
+        <label for="file1">Upload First Image:</label>
+        <input type="file" name="file1" id="file1" accept="image/*" required onchange="previewImage(event, 'image1')"><br>
+        
+        <!-- Image Preview for First Image -->
+
+        <div id="imagePreview1" class="image-preview-container">
+            <img id="image1" class="image-preview" style="display: none;" />
+        </div>
+
+        <label for="file2">Upload Second Image:</label>
+        <input type="file" name="file2" id="file2" accept="image/*" required onchange="previewImage(event, 'image2')"><br>
+
+        <div id="imagePreview2" class="image-preview-container">
+            <img id="image2" class="image-preview" style="display: none;" />
+        </div>
+
+
+        <label for="alpha">Blending Ratio (Alpha):</label>
+        <input type="range" name="alpha" id="alpha" min="0" max="1" step="0.01" value="0.5">
+        <span id="alphaValue">0.5</span><br>
+
+        <button type="submit" id="btnblend">Blend Images</button>
+    </form>
+
+    {% if error %}
+    <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    {% if image1_url %}
+    <h2>First Uploaded Image</h2>
+    <img src="{{ image1_url }}" alt="First Image" style="max-width: 600px;">
+    {% endif %}
+
+    {% if image2_url %}
+    <h2>Second Uploaded Image</h2>
+    <img src="{{ image2_url }}" alt="Second Image" style="max-width: 600px;">
+    {% endif %}
+
+    {% if blended_image_url %}
+    <br>
+    <h1>Blended Image</h1>
+    <img src="{{ blended_image_url }}" alt="Blended Image" style="max-width: 600px;">
+    {% endif %}
+
+    <script>
+        const alphaSlider = document.getElementById('alpha');
+        const alphaValue = document.getElementById('alphaValue');
+        
+        alphaSlider.addEventListener('input', () => {
+            alphaValue.textContent = alphaSlider.value;
+        });
+
+        function previewImage(event, imageId) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = document.getElementById(imageId);
+                img.src = e.target.result;
+                img.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+    </script>
+</body>
+<style>
+    /* Importing the fonts */
+    @import url('https://fonts.cdnfonts.com/css/tt-commons-pro');
+    @import url('https://fonts.cdnfonts.com/css/tt-backwards-sans-trial');
+
+    /* General body style */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #fffdf0;
+    }
+
+    /* Header styles */
+    h1 {
+        margin: auto;
+        max-width: 500px;
+        text-align: center;
+        font-size: 3rem;
+        color: #735e59;
+        font-family: 'TT Backwards Sans Trial', sans-serif;
+        line-height: 1.2; /* Controls the line height */
+    }
+
+    /* Main section styles */
+    main {
+        padding: 2rem;
+        text-align: center;
+    }
+
+    /* Form styles */
+    form {
+        margin-top: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+
+    /* Form input, select, and button styles */
+    form input, form select, form button {
+        display: block;
+        width: 100%;
+        max-width: 500px;
+        margin: 10px auto;
+        padding: 10px;
+        font-size: 1rem;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+    }
+
+
+    /* Blended image styling */
+    img {
+        display: block;
+        margin: 20px auto;
+        max-width: 600px;
+        height: auto;
+    }
+
+    /* Error message styling */
+    p {
+        color: red;
+    }
+
+    /* Styling for range input */
+    #alphaValue {
+        font-weight: bold;
+    }
+
+    /* Styling for file input */
+    input[type="file"] {
+        padding: 10px;
+        font-size: 1rem;
+    }
+
+/* Separator line styles */
+.separator-line {
+    width: 80%; 
+    margin: 0 auto; 
+    height: 1px; 
+    background-color: black;
+    margin-bottom: 20px; 
+}
+
+#imp {
+   position: absolute;
+   left: 150px;
+}
+
+.image-preview {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    margin-top: 10px;
+}
+
+.image-preview-container {
+    width: 100%;
+    max-width: 400px;  /* Adjust width to suit your design */
+    aspect-ratio: 4 / 3;  /* Fixed aspect ratio (4:3) */
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+.image-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  /* Ensures the image covers the container without distortion */
+    display: block;
+}
+
+#btnblend {
+    background-color: #d9dfc6;
+    counter-reset: black;
+    padding: 0.7rem 3rem;
+    border-radius: 20px;
+    margin-top: 2rem;
+    border: none;
+    font-size: 25px;
+    font-family: 'TT Backwards Sans Trial', sans-serif;
+}
+
+/* Header styles */
+header {
+    background-color: #fffdf0;
+    padding: 2rem;
+    padding-top: 30px;  
+    text-align: right;
+    margin-right: 7rem;
+    font-size: 20px;
+}
+
+/* Nav styles - applying TT Commons Pro font */
+nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    font-family: "Quicksand", serif;
+}
+
+</style>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filters Page</title>
+    <link rel="stylesheet" href="../static/filters.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" id="imp">Project IMP</a>
+            <a href="/blending">Blending</a>
+            <a href="/uploads">Border</a>
+            <a href="/crop">Crop</a>
+            <a href="/feature_matching">Feature Matching</a>
+            <a href="/filters">Filters</a>
+            <a href="/bg_replacement">BG Replacement</a>
+            <a href="/enhancement">Enhancement</a>
+            <a href="/compress">Compress</a>
+            <a href="/binary">Binary</a>
+            <a href="/overlay">Overlay</a>  
+        </nav>
+    </header>
+    <div class="separator-line"></div>
+    <main>
+        <div class="form-section">
+            <!-- Left Side: Form -->
+            <div class="form-container">
+                <form action="/filters" method="post" enctype="multipart/form-data">
+                    <label for="upload">Upload an image:</label>
+                    <input type="file" name="file" id="upload" accept="image/png, image/jpeg">
+
+                    <label for="filter">Choose a Filter:</label>
+                    <select name="filter" id="filter">
+                        <option value="Wiener">Wiener</option>
+                        <option value="Gaussian">Gaussian</option>
+                    </select>
+
+                    <button type="submit" id="applyButton">Apply Filter</button>
+                </form>
+
+                <!-- Error message -->
+                {% if error %}
+                <p style="color: red; font-size: 15px;">{{ error }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Right Side: Preview -->
+            <div id="preview-container">
+                <h2 id="previewTitle" style="display: none;">Image Preview</h2>
+                <img id="filePreview" alt="File Preview" style="display: none;">
+            </div>
+        </div>
+
+       <!-- Display original and processed images -->
+    <section id="imageComparison" style="{{ 'display: block;' if original_image and processed_image else 'display: none;' }}">
+    <div style="display: flex; justify-content: space-between;">
+        <div style="flex: 1; text-align: center;">
+            <h2>Original Image</h2>
+            <img id="originalPreview" src="{{ original_image if original_image else '' }}" alt="Original Image" style="max-width: 600px;">
+        </div>
+
+        <div style="flex: 1; text-align: center; margin-left: 2rem;">
+            <h2>Processed Image</h2>
+            <img id="processedPreview" src="{{ processed_image if processed_image else '' }}" alt="Processed Image" style="max-width: 600px;">
+        </div>
+    </div>
+</section>
+    </main>
+
+    <script>
+        const uploadInput = document.getElementById('upload');
+        const filePreview = document.getElementById('filePreview');
+        const previewTitle = document.getElementById('previewTitle');
+        const imageComparison = document.getElementById('imageComparison');
+
+        uploadInput.addEventListener('change', () => {
+            const file = uploadInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    filePreview.src = e.target.result;
+                    filePreview.style.display = 'block';
+                    previewTitle.style.display = 'block';
+                    imageComparison.style.display = 'none'; 
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>

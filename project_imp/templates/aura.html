@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Editor</title>
+    <link rel="stylesheet" href="../static/aura.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" id="imp">Project IMP</a>
+            <a href="/blending" style="padding-left: 40rem;">Blending</a>
+            <a href="/uploads">Border</a>
+            <a href="/crop">Crop</a>
+            <a href="/feature_matching">Feature Matching</a>
+            <a href="/filters">Filters</a>
+            <a href="/bg_replacement">BG Replacement</a>
+            <a href="/enhancement">Enhancement</a>
+            <a href="/compress">Compress</a>
+            <a href="/binary">Binary</a>
+            <a href="/overlay">Overlay</a>        </nav>
+    </header>
+    <div class="separator-line"></div>
+
+    <main>
+    <div class="container">
+        <h1>Image Editor</h1>
+
+        <div class="upload-container">
+            <input type="file" id="uploadImage" accept="image/*" onchange="previewImage()" />
+            <button onclick="uploadImage()">Upload Image</button>
+        </div>
+      
+        <div class="image-preview">
+            <img id="imagePreview" src="" alt="Image Preview" style="max-width: 100%; display: none;" />
+        </div>      
+
+        <div class="controls">
+            <div class="slider-container">
+                <label>Brightness</label>
+                <input type="range" id="brightness" min="0" max="2" step="0.1" value="1" onchange="updateImage()" />
+            </div>
+            <div class="slider-container">
+                <label>Contrast</label>
+                <input type="range" id="contrast" min="0" max="2" step="0.1" value="1" onchange="updateImage()" />
+            </div>
+            <div class="slider-container">
+                <label>Saturation</label>
+                <input type="range" id="saturation" min="0" max="2" step="0.1" value="1" onchange="updateImage()" />
+            </div>
+            <div class="slider-container">
+                <label>Temperature</label>
+                <input type="range" id="temperature" min="-180" max="180" step="1" value="0" onchange="updateImage()" />
+            </div>
+            <div class="slider-container">
+                <label>Tint</label>
+                <input type="range" id="tint" min="0" max="1" step="0.01" value="0" onchange="updateImage()" />
+            </div>
+            <div class="slider-container">
+                <label>Highlights</label>
+                <input type="range" id="highlights" min="0" max="2" step="0.1" value="1" onchange="updateImage()" />
+            </div>
+            <div class="slider-container">
+                <label>Shadows</label>
+                <input type="range" id="shadows" min="0" max="2" step="0.1" value="1" onchange="updateImage()" />
+            </div>
+            <div class="slider-container">
+                <label>Whites</label>
+                <input type="range" id="whites" min="0" max="2" step="0.1" value="1" onchange="updateImage()" />
+            </div>
+            <div class="slider-container">
+                <label>Blacks</label>
+                <input type="range" id="blacks" min="0" max="2" step="0.1" value="1" onchange="updateImage()" />
+            </div>
+            <div class="slider-container">
+                <label>Vibrance</label>
+                <input type="range" id="vibrance" min="0" max="2" step="0.1" value="1" onchange="updateImage()" />
+            </div>
+            <div class="slider-container">
+                <label>Sharpness</label>
+                <input type="range" id="sharpness" min="0" max="5" step="0.1" value="1" onchange="updateImage()" />
+            </div>
+            <div class="slider-container">
+                <label>Clarity</label>
+                <input type="range" id="clarity" min="0" max="2" step="0.1" value="1" onchange="updateImage()" />
+            </div>
+            <div class="slider-container">
+                <label>Vignette</label>
+                <input type="range" id="vignette" min="0" max="100" step="1" value="0" onchange="updateImage()" />
+            </div>
+
+            <div class="filters">
+                <label>Filters</label>
+                <select id="filter" onchange="updateImage()">
+                    <option value="">None</option>
+                    <option value="dramatic">Dramatic</option>
+                    <option value="vivid">Vivid</option>
+                    <option value="mono">Mono</option>
+                    <option value="retro">Retro</option>
+                    <option value="polaroid">Polaroid</option>
+                    <option value="vintage">Vintage</option>
+                    <option value="blackwhite">Black & White</option>
+                    <option value="sunset">Sunset</option>
+                </select>
+            </div>
+
+            <div class="effects">
+                <label>Effects</label>
+                <select id="effect" onchange="updateImage()">
+                    <option value="">None</option>
+                    <option value="duotone">Duotone</option>
+                    <option value="blur">Blur</option>
+                    <option value="shadows">Shadows</option>
+                </select>
+            </div>
+        </div>
+        <button onclick="saveImage()">Save Image</button>
+    </div>
+
+    <script src="static/aura.js"></script>
+</main>
+</body>
+</html>

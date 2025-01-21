@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project IMP</title>
+    <link rel="stylesheet" href="../static/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/blending">Blending</a>
+            <a href="/uploads">Border</a>
+            <a href="/crop">Crop</a>
+            <a href="/feature_matching">Feature Matching</a>
+            <a href="/filters">Filters</a>
+            <a href="/bg_replacement">BG Replacement</a>
+            <a href="/enhancement">Enhancement</a>
+            <a href="/compress">Compress</a>
+            <a href="/binary">Binary</a>
+            <a href="/overlay">Overlay</a>
+        </nav>
+    </header>
+    <div class="separator-line"></div>
+    <main>
+        <div class="text-and-image">
+            <div>
+                <h1>Edit your <br> photo here!</h1>
+                <a href="/aura" style="text-decoration: none;">
+                <button href="" id="btnUpload">Start Editing!</button> </a>
+            </div>
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Photo" id="photo">
+        </div>
+    </main>
+</body>
+</html>

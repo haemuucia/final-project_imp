@@ -1,0 +1,126 @@
+/* Importing the fonts */
+@import url('https://fonts.cdnfonts.com/css/tt-commons-pro');
+@import url('https://fonts.cdnfonts.com/css/tt-backwards-sans-trial');
+
+/* General body style */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fffdf0;
+}
+
+/* Header styles - Updated */
+header {
+    background-color: #fffdf0;
+    padding: 2rem;
+    padding-top: 30px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Nav styles - Updated */
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    font-family: "Quicksand", serif;
+}
+
+#imp {
+    position: absolute;
+    left: 0;
+}
+
+/* Main section styles */
+main {
+    padding: 2rem;
+    text-align: center;
+}
+
+/* Text and image layout */
+.text-and-image {
+    display: flex;
+    flex-direction: row;
+    align-items: center; 
+    justify-content: center;
+    margin-top: 3.5rem;
+    gap: 2rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* h1 styles */
+h1 {
+    text-align: right;
+    font-size: 5rem;
+    color: #735e59;
+    font-family: 'TT Backwards Sans Trial', sans-serif;
+    line-height: 1.2;
+    margin: 0;
+    margin-bottom: 2rem;
+}
+
+/* Upload button styles */
+#btnUpload {
+    background-color: #d9dfc6;
+    color: black;
+    padding: 0.7rem 3rem;
+    border-radius: 20px;
+    border: none;
+    font-size: 25px;
+    font-family: 'TT Backwards Sans Trial', sans-serif;
+    cursor: pointer;
+    margin-top: 2rem;
+    display: inline-block;
+}
+
+/* Image styles */
+#photo {
+    max-width: 380px;
+    height: auto;
+    border: 10px solid #735e59;
+    border-radius: 10px;
+}
+
+/* Separator line styles */
+.separator-line {
+    width: 80%;
+    margin: 0 auto;
+    height: 1px;
+    background-color: black;
+    margin-bottom: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    nav {
+        padding: 0 2rem;
+    }
+    
+    .text-and-image {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    h1 {
+        text-align: center;
+        font-size: 4rem;
+        margin-left: 0;
+    }
+    
+    #btnUpload {
+        margin-left: 0;
+    }
+}
