@@ -139,5 +139,85 @@
 
     <!-- Display the result image -->
     <img src="{{ img }}" alt="Processed Image">
+
+<script>
+    let originalImage = null;
+let processedImageUrl = '';
+
+// Function to handle image preview
+function previewImage() {
+    const fileInput = document.getElementById('uploadImage');
+    const preview = document.getElementById('imagePreview');
+
+    if (fileInput.files && fileInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            preview.style.display = 'block';
+            originalImage = new Image();
+            originalImage.src = e.target.result;
+        };
+        reader.readAsDataURL(fileInput.files[0]);
+    }
+}
+
+// Function to handle form submission and background replacement
+function handleBackgroundReplacement(event) {
+    event.preventDefault();
+    
+    const formData = new FormData(event.target);
+    
+    fetch('/bg_replacement', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.blob())
+    .then(blob => {
+        // Create URL for the processed image
+        processedImageUrl = URL.createObjectURL(blob);
+        
+        // Update the result image
+        const resultImage = document.querySelector('img[src="{{ img }}"]');
+        if (resultImage) {
+            resultImage.src = processedImageUrl;
+        }
+    })
+    .catch(error => {
+        console.error('Error processing image:', error);
+        alert('An error occurred while processing the image.');
+    });
+}
+
+// Function to handle image download
+function downloadImage() {
+    if (!processedImageUrl) {
+        alert('No processed image available to download.');
+        return;
+    }
+
+    // Create temporary link for download
+    const link = document.createElement('a');
+    link.href = processedImageUrl;
+    link.download = 'replaced-background.png';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+// Add event listeners when the document loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Add form submit handler
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function(e) {
+        const submitButton = e.submitter;
+        if (submitButton.value === 'Replace Background') {
+            handleBackgroundReplacement(e);
+        } else if (submitButton.value === 'Save Image') {
+            e.preventDefault();
+            downloadImage();
+        }
+    });
+});
+</script>
 </body>
 </html>
